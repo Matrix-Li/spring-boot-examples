@@ -10,6 +10,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by summer on 2017/5/5.
  */
@@ -36,8 +39,8 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User findUserByUserName(String userName) {
         Query query=new Query(Criteria.where("userName").is(userName));
-        User user =  mongoTemplate.findOne(query , User.class);
-        return user;
+        List<User> user =  mongoTemplate.find(query , User.class);
+        return user.get(0);
     }
 
     /**
